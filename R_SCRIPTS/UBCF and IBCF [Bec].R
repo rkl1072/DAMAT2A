@@ -25,10 +25,10 @@ rating_matrix <- as.matrix(rating_matrix[,-1]) #remove userIds
 # Convert rating matrix into a recommenderlab matrix
 rating_matrix <- as(rating_matrix, "realRatingMatrix")
 
-#Normalize the data
+# Normalize the data
 rating_mat_norm <- normalize(rating_matrix)
 
-#Create Recommender Model
+# Create Recommender Model
 recommender_model <- Recommender(rating_mat_norm, method = "UBCF", param=list(method="Cosine",nn=30))
 
 # Get top 10 recommendations for uer 1
