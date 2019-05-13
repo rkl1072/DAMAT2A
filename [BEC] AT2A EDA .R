@@ -281,7 +281,79 @@ p3 <- ggplot(data = train1, aes(x = item_mean_rating, y = item_id)) +
 # print results
 p3
 
-########################
-########################
-########################
+qplot(getRatings(normalize(train1, method = "Z-score")),
+      main = "Histogram of normalized ratings", xlab = "Rating") 
+
+# REMOVE DUPLICATES
+train1 = unique(train1)
+test1 = unique(test1)
+
+######################################
+###########  FURTHER EDA #############
+#####################################
+
+# train 
+# Convert boolean True | False into Binary 0|1 for movie genres
+train1$action  <- as.integer(train1$action)
+train1$adventure  <- as.integer(train1$adventure)
+train1$animation  <- as.integer(train1$animation)
+train1$childrens  <- as.integer(train1$childrens)
+train1$comedy  <- as.integer(train1$comedy)
+train1$crime  <- as.integer(train1$crime)
+train1$documentary  <- as.integer(train1$documentary)
+train1$drama <- as.integer(train1$drama)
+train1$fantasy  <- as.integer(train1$fantasy)
+train1$film_noir <- as.integer(train1$film_noir)
+train1$horror  <- as.integer(train1$horror)
+train1$musical  <- as.integer(train1$musical)
+train1$mystery <- as.integer(train1$mystery)
+train1$romance  <- as.integer(train1$romance)
+train1$sci_fi  <- as.integer(train1$sci_fi)
+train1$thriller <- as.integer(train1$thriller)
+train1$war  <- as.integer(train1$war)
+train1$western <- as.integer(train1$western)
+train1$unknown  <- as.integer(train1$unknown)
+
+# create Genre df
+genres_all <- select(train1, unknown, action, adventure, animation, childrens, comedy, crime, documentary, drama, fantasy, film_noir, horror, musical, mystery, romance, sci_fi, thriller, war, western)
+
+# Create Ratings df
+ratings <- select(train1, user_id, item_id, rating)
+
+# Create Ratings TEST  df (no ratings as these will be predicted)
+ratings_test <- select(test1, user_id, item_id)
+
+# Create Movie df
+movies <- select(train1, item_id, movie_title)
+
+# Replicate on test data
+# Convert boolean True | False into Binary 0|1 for movie genres
+test1$action  <- as.integer(test1$action)
+test1$adventure  <- as.integer(test1$adventure)
+test1$animation  <- as.integer(test1$animation)
+test1$childrens  <- as.integer(test1$childrens)
+test1$comedy  <- as.integer(test1$comedy)
+test1$crime  <- as.integer(test1$crime)
+test1$documentary  <- as.integer(test1$documentary)
+test1$drama <- as.integer(test1$drama)
+test1$fantasy  <- as.integer(test1$fantasy)
+test1$film_noir <- as.integer(test1$film_noir)
+test1$horror  <- as.integer(test1$horror)
+test1$musical  <- as.integer(test1$musical)
+test1$mystery <- as.integer(test1$mystery)
+test1$romance  <- as.integer(test1$romance)
+test1$sci_fi  <- as.integer(test1$sci_fi)
+test1$thriller <- as.integer(test1$thriller)
+test1$war  <- as.integer(test1$war)
+test1$western <- as.integer(test1$western)
+test1$unknown  <- as.integer(test1$unknown)
+
+# create Genre df
+genres_all_test <- select(test1, unknown, action, adventure, animation, childrens, comedy, crime, documentary, drama, fantasy, film_noir, horror, musical, mystery, romance, sci_fi, thriller, war, western)
+
+# Create Ratings df
+ratings_test <- select(test1, user_id, item_id, rating)
+
+# Create Movie df
+movies_test <- select(test1, item_id, movie_title)
 
